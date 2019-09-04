@@ -53,12 +53,12 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="DeviceIds_JsonFiles" elementType="Argument">
               <stringProp name="Argument.name">DeviceIds_JsonFiles</stringProp>
-              <stringProp name="Argument.value">E:\\apache-jmeter-5.1.1\\DeviceIds_JsonFiles\\Valid_DeviceIds_Json_Files\\</stringProp>
+              <stringProp name="Argument.value">D:\\Performance_Testing\\Appache Jmeter 5.1.1\\DeviceIds_JsonFiles\\Valid_DeviceIds_Json_Files\\</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="Invalid_DeviceIds_JsonFiles" elementType="Argument">
               <stringProp name="Argument.name">Invalid_DeviceIds_JsonFiles</stringProp>
-              <stringProp name="Argument.value">E:\\apache-jmeter-5.1.1\\DeviceIds_JsonFiles\\Invalid_DeviceIds_Json_Files\\Invalid_DeviceIds.txt</stringProp>
+              <stringProp name="Argument.value">D:\\Performance_Testing\\Appache Jmeter 5.1.1\\DeviceIds_JsonFiles\\Invalid_DeviceIds_Json_Files\\Invalid_DeviceIds.txt</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="BASE_URL_1" elementType="Argument">
