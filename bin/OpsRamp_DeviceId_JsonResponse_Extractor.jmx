@@ -16,9 +16,9 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">2</stringProp>
+          <stringProp name="LoopController.loops">1200</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">2</stringProp>
+        <stringProp name="ThreadGroup.num_threads">5</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -1740,6 +1740,10 @@ else{
               <stringProp name="Scope.variable"></stringProp>
             </RegexExtractor>
             <hashTree/>
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+              <stringProp name="ConstantTimer.delay">2000</stringProp>
+            </ConstantTimer>
+            <hashTree/>
             <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
               <stringProp name="JSONPostProcessor.referenceNames">JsonResponseId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs"></stringProp>
@@ -1771,21 +1775,24 @@ String deviceId=vars.get(&quot;DeviceId&quot;);
 String invalid_DeviceIdsFilePath=args[0];
 
 if(jsonResponseId==null ||jsonResponseId.equals(&quot;NO_DATA_FOUND&quot;)||jsonResponseId.isEmpty()){
-	FileWriter writer = new FileWriter(invalid_DeviceIdsFilePath,true);
-     BufferedWriter out=new BufferedWriter(writer);
-	out.write(deviceId);
-	out.newLine();
-     out.close();
+	try{
+		FileWriter writer = new FileWriter(invalid_DeviceIdsFilePath,true);
+	     BufferedWriter out=new BufferedWriter(writer);
+		out.write(deviceId);
+		out.newLine();
+	     out.close();
+	     Thread.sleep(1000);
+		
+	}
+	catch(Exception e){
+		log.info(&quot;There is a some problem while writting invalid device ids into a file.&quot;);
+	}
 }
 
 </stringProp>
             </JSR223PostProcessor>
             <hashTree/>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
-            <stringProp name="ConstantTimer.delay">5000</stringProp>
-          </ConstantTimer>
-          <hashTree/>
           <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
             <stringProp name="IfController.condition">${__groovy(vars.get(&quot;JsonResponseId&quot;) != &quot;NO_DATA_FOUND&quot; )}</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
@@ -1858,11 +1865,19 @@ if(jsonResponse==null ||jsonResponse.equals(&quot;NO_DATA_FOUND&quot;)||jsonResp
 	log.info(&quot;There is no json response for Json response id &quot;+vars.get(&quot;JsonResponseId&quot;));
 }
 else{
-	String jsonResponseFilePath=opsRampDevicesDirectory+vars.get(&quot;JsonResponseId&quot;)+&quot;.txt&quot;;
-	FileWriter writer = new FileWriter(jsonResponseFilePath);
-     BufferedWriter out=new BufferedWriter(writer);
-	out.write(jsonResponse);
-     out.close();
+	try{
+		String jsonResponseFilePath=opsRampDevicesDirectory+vars.get(&quot;JsonResponseId&quot;)+&quot;.txt&quot;;
+		FileWriter writer = new FileWriter(jsonResponseFilePath);
+	     BufferedWriter out=new BufferedWriter(writer);
+		out.write(jsonResponse);
+		Thread.sleep(2000);
+	     out.close();
+		
+	}
+	catch(Exception e){
+		log.info(&quot;There is a some exception while writting the JSONResponse.&quot;);
+		
+	}
 }
 		
 	    	
